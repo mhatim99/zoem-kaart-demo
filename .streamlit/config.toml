@@ -1,0 +1,41 @@
+[theme]
+primaryColor = "#2c5282"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f7fafc"
+textColor = "#1a202c"
+font = "sans serif"
+
+[server]
+headless = true
+enableCORS = false
+enableXsrfProtection = true
+```
+
+**Step 12:** Click **"Commit changes"** → **"Commit changes"** again in the popup
+
+---
+
+## Part 4: Deploy to Streamlit Cloud
+
+**Step 13:** Go to [share.streamlit.io](https://share.streamlit.io)
+
+**Step 14:** Click **"Sign in with GitHub"** and authorize
+
+**Step 15:** Click **"Create app"** (or **"New app"**)
+
+**Step 16:** Fill in:
+- **Repository:** Select `your-username/zoem-kaart-demo`
+- **Branch:** `main`
+- **Main file path:** `app.py`
+
+**Step 17:** Click **"Deploy!"**
+
+---
+
+## Part 5: Wait & Get Your Link
+
+**Step 18:** Wait 2-3 minutes while it builds
+
+**Step 19:** Once complete, you'll get a URL like:
+```
+https://zoem-kaart-demo.streamlit.app
