@@ -24,7 +24,7 @@ import math
 
 st.set_page_config(
     page_title="Zoem Kaart - Dutch Pollinator Explorer",
-    page_icon="🐝",
+    page_icon=None,
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -388,7 +388,7 @@ def create_temporal_chart(df: pd.DataFrame) -> go.Figure:
 
 def main():
     # Header
-    st.title("🐝 Zoem Kaart")
+    st.title("Zoem Kaart")
     st.markdown("### Dutch Pollinator Biodiversity Explorer")
     st.markdown(
         "*Web demonstration of the Zoem Kaart QGIS plugin — "
@@ -399,7 +399,7 @@ def main():
     
     # Sidebar controls
     with st.sidebar:
-        st.header("🔍 Query Parameters")
+        st.header("Query Parameters")
         
         # Taxon selection
         taxon_group = st.selectbox(
@@ -442,7 +442,7 @@ def main():
         st.markdown("---")
         
         # Fetch button
-        fetch_button = st.button("🔎 Fetch Data", type="primary", use_container_width=True)
+        fetch_button = st.button("Fetch Data", type="primary", use_container_width=True)
         
         st.markdown("---")
         st.markdown("### About")
@@ -486,7 +486,7 @@ def main():
             return
         
         # Summary metrics
-        st.subheader("📊 Summary")
+        st.subheader("Summary")
         col1, col2, col3, col4, col5 = st.columns(5)
         
         with col1:
@@ -507,24 +507,24 @@ def main():
         col_map, col_charts = st.columns([3, 2])
         
         with col_map:
-            st.subheader("🗺️ Distribution Map")
+            st.subheader("Distribution Map")
             center_lat = (min_lat + max_lat) / 2
             center_lon = (min_lon + max_lon) / 2
             m = create_map(df, center_lat, center_lon)
             st_folium(m, width=700, height=500)
         
         with col_charts:
-            st.subheader("🔴 Conservation Status")
+            st.subheader("Conservation Status")
             st.plotly_chart(create_red_list_chart(df), use_container_width=True)
             
             st.plotly_chart(create_temporal_chart(df), use_container_width=True)
         
         # Species chart (full width)
-        st.subheader("🦋 Species Observations")
+        st.subheader("Species Observations")
         st.plotly_chart(create_species_bar_chart(df, top_n=15), use_container_width=True)
         
         # Data table
-        with st.expander("📋 View Raw Data"):
+        with st.expander("View Raw Data"):
             display_cols = ["species", "family", "red_list_status", "lat", "lon", "date", "year"]
             # FIX: Sort before selecting columns
             df_sorted = df.sort_values("conservation_priority", ascending=False)
@@ -536,7 +536,7 @@ def main():
             # Download button
             csv = df.to_csv(index=False)
             st.download_button(
-                label="📥 Download CSV",
+                label="Download CSV",
                 data=csv,
                 file_name="zoem_kaart_export.csv",
                 mime="text/csv",
@@ -544,10 +544,10 @@ def main():
     
     else:
         # Welcome message when no data loaded
-        st.info("👈 Configure your query parameters in the sidebar and click **Fetch Data** to explore Dutch pollinator biodiversity.")
+        st.info("Configure your query parameters in the sidebar and click **Fetch Data** to explore Dutch pollinator biodiversity.")
         
         # Show example map of Netherlands
-        st.subheader("🗺️ Study Area: The Netherlands")
+        st.subheader("Study Area: The Netherlands")
         m = folium.Map(
             location=[52.1, 5.3],
             zoom_start=7,
@@ -565,27 +565,27 @@ def main():
         
         # Feature highlights
         st.markdown("---")
-        st.subheader("✨ Features")
+        st.subheader("Features")
         
         col1, col2, col3 = st.columns(3)
         
         with col1:
-            st.markdown("#### 🐝 Multi-Taxon Support")
+            st.markdown("#### Multi-Taxon Support")
             st.markdown("Explore wild bees, butterflies, and hoverflies from GBIF data.")
         
         with col2:
-            st.markdown("#### 📊 Diversity Metrics")
+            st.markdown("#### Diversity Metrics")
             st.markdown("Calculate Shannon, Simpson, and Pielou's evenness indices.")
         
         with col3:
-            st.markdown("#### 🔴 Conservation Status")
+            st.markdown("#### Conservation Status")
             st.markdown("Automatic enrichment with Dutch Red List classifications.")
     
     # Footer
     st.markdown("---")
     st.markdown(
         "<div style='text-align: center; color: #666;'>"
-        "🐝 Zoem Kaart Web Demo | "
+        "Zoem Kaart Web Demo |"
         "Full QGIS plugin available for advanced analysis | "
         "© 2025 Mohamed Z. Hatim, Wageningen University & Research"
         "</div>",
