@@ -179,6 +179,7 @@ def enrich_with_red_list(df: pd.DataFrame) -> pd.DataFrame:
     if df.empty:
         return df
     
+    df = df.copy()  # Avoid SettingWithCopyWarning
     df["red_list_status"] = df["species"].map(ALL_RED_LIST).fillna("Unknown")
     df["status_color"] = df["red_list_status"].map(
         lambda x: RED_LIST_STATUS.get(x, {}).get("color", "#c7c7c7")
@@ -525,8 +526,10 @@ def main():
         # Data table
         with st.expander("📋 View Raw Data"):
             display_cols = ["species", "family", "red_list_status", "lat", "lon", "date", "year"]
+            # FIX: Sort before selecting columns
+            df_sorted = df.sort_values("conservation_priority", ascending=False)
             st.dataframe(
-                df[display_cols].sort_values("conservation_priority", ascending=False),
+                df_sorted[display_cols],
                 use_container_width=True,
             )
             
